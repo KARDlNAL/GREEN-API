@@ -328,7 +328,7 @@
             <!-- Левая панель: поля ввода и кнопки -->
             <div class="left-panel">
                 <!-- Параметры подключения -->
-                <span class="section-title">🔐 Параметры подключения</span>
+                <span class="section-title"> Параметры подключения</span>
                 <div class="credentials">
                     <div class="input-group">
                         <label for="idInstance">idInstance</label>
@@ -352,9 +352,9 @@
                 </div>
 
                 <!-- Метод sendMessage -->
-                <span class="section-title">✉️ Отправка сообщения</span>
+                <span class="section-title"> Отправка сообщения</span>
                 <div class="method-block">
-                    <h4>📝 sendMessage</h4>
+                    <h4> sendMessage</h4>
                     <div class="input-group">
                         <label for="chatId">Номер получателя (chatId)</label>
                         <input type="text" id="chatId" placeholder="79001234567@c.us" value="">
@@ -364,14 +364,14 @@
                         <textarea id="messageText" placeholder="Введите текст сообщения...">Привет! Это тестовое сообщение GREEN-API (DevOps task).</textarea>
                     </div>
                     <button onclick="callSendMessage()" class="accent">
-                        <span>🚀</span> Отправить сообщение
+                        <span></span> Отправить сообщение
                     </button>
                 </div>
 
                 <!-- Метод sendFileByUrl -->
                 <span class="section-title">📎 Отправка файла по URL</span>
                 <div class="method-block">
-                    <h4>📂 sendFileByUrl</h4>
+                    <h4> sendFileByUrl</h4>
                     <div class="input-group">
                         <label for="fileChatId">Номер получателя (chatId)</label>
                         <input type="text" id="fileChatId" placeholder="79001234567@c.us" value="">
@@ -389,7 +389,7 @@
                         <input type="text" id="fileCaption" placeholder="Подпись..." value="Отправлено через GREEN-API DevOps">
                     </div>
                     <button onclick="callSendFileByUrl()" class="accent">
-                        <span>📤</span> Отправить файл
+                        <span></span> Отправить файл
                     </button>
                 </div>
 
@@ -401,7 +401,7 @@
             <!-- Правая панель: только вывод результата -->
             <div class="right-panel">
                 <div class="response-area">
-                    <h3>📋 Результат выполнения</h3>
+                    <h3> Результат выполнения</h3>
                     <div id="responseOutput">
                         Введите параметры подключения и нажмите кнопку метода. Ответ API отобразится здесь.
                     </div>
