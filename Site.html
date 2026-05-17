@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREEN-API Тестовое задание DevOps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #1e3c2f;
+            padding: 20px 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: #4caf50;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .title h1 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .title p {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            min-height: 550px;
+        }
+
+        /* Левая панель с элементами управления */
+        .left-panel {
+            width: 50%;
+            padding: 25px;
+            border-right: 1px solid #e8f0e8;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            background: #fafdfa;
+            overflow-y: auto;
+            max-height: 700px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e3c2f;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .credentials {
+            background: #f0f7f0;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px dashed #4caf50;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #1e3c2f;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #d0e0d0;
+            border-radius: 10px;
+            font-size: 13px;
+            transition: 0.3s;
+            background: white;
+            color: #333;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .method-block {
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid #e0e8e0;
+        }
+
+        .method-block h4 {
+            font-size: 14px;
+            color: #2c3e2c;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            border: 2px solid #dce5dc;
+            color: #2c3e2c;
+            text-align: left;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        button.primary {
+            background: #1e3c2f;
+            color: white;
+            border: 2px solid #1e3c2f;
+        }
+
+        button.primary:hover {
+            background: #2c5539;
+        }
+
+        button.accent {
+            background: #4caf50;
+            color: white;
+            border: 2px solid #4caf50;
+        }
+
+        button.accent:hover {
+            background: #43a047;
+        }
+
+        button span {
+            font-size: 16px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-group button {
+            flex: 1;
+        }
+
+        .hint {
+            font-size: 11px;
+            color: #888;
+            text-align: center;
+            margin-top: auto;
+            padding-top: 5px;
+        }
+
+        /* Правая панель с результатом */
+        .right-panel {
+            width: 50%;
+            padding: 25px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .response-area {
+            background: #1a1f2b;
+            border-radius: 16px;
+            padding: 20px;
+            color: #e0e0e0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .response-area h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #4caf50;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+
+        #responseOutput {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 18px;
+            font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            flex: 1;
+            overflow-y: auto;
+            color: #c9d1d9;
+            line-height: 1.6;
+            border: 1px solid #30363d;
+            min-height: 450px;
+        }
+
+        #responseOutput.success {
+            border-left: 4px solid #4caf50;
+        }
+
+        #responseOutput.error {
+            border-left: 4px solid #f85149;
+            color: #f85149;
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .left-panel, .right-panel {
+                width: 100%;
+            }
+
+            .left-panel {
+                border-right: none;
+                border-bottom: 1px solid #e8f0e8;
+                max-height: none;
+            }
+
+            #responseOutput {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Заголовок -->
+        <div class="header">
+            <div class="logo">G</div>
+            <div class="title">
+                <h1>GREEN-API Console</h1>
+                <p>DevOps Integration Test</p>
+            </div>
+        </div>
+
+        <!-- Основной блок: лево (управление) / право (результат) -->
+        <div class="main-content">
+            <!-- Левая панель: поля ввода и кнопки -->
+            <div class="left-panel">
+                <!-- Параметры подключения -->
+                <span class="section-title">🔐 Параметры подключения</span>
+                <div class="credentials">
+                    <div class="input-group">
+                        <label for="idInstance">idInstance</label>
+                        <input type="text" id="idInstance" placeholder="Введите idInstance" value="">
+                    </div>
+                    <div class="input-group">
+                        <label for="apiTokenInstance">ApiTokenInstance</label>
+                        <input type="text" id="apiTokenInstance" placeholder="Введите ApiTokenInstance" value="">
+                    </div>
+                </div>
+
+                <!-- Методы получения данных -->
+                <span class="section-title">📊 Служебные методы</span>
+                <div class="button-group">
+                    <button onclick="callGetSettings()" class="primary">
+                        <span>⚙️</span> getSettings
+                    </button>
+                    <button onclick="callGetStateInstance()">
+                        <span>📡</span> getStateInstance
+                    </button>
+                </div>
+
+                <!-- Метод sendMessage -->
+                <span class="section-title">✉️ Отправка сообщения</span>
+                <div class="method-block">
+                    <h4>📝 sendMessage</h4>
+                    <div class="input-group">
+                        <label for="chatId">Номер получателя (chatId)</label>
+                        <input type="text" id="chatId" placeholder="79001234567@c.us" value="">
+                    </div>
+                    <div class="input-group">
+                        <label for="messageText">Текст сообщения</label>
+                        <textarea id="messageText" placeholder="Введите текст сообщения...">Привет! Это тестовое сообщение GREEN-API (DevOps task).</textarea>
+                    </div>
+                    <button onclick="callSendMessage()" class="accent">
+                        <span>🚀</span> Отправить сообщение
+                    </button>
+                </div>
+
+                <!-- Метод sendFileByUrl -->
+                <span class="section-title">📎 Отправка файла по URL</span>
+                <div class="method-block">
+                    <h4>📂 sendFileByUrl</h4>
+                    <div class="input-group">
+                        <label for="fileChatId">Номер получателя (chatId)</label>
+                        <input type="text" id="fileChatId" placeholder="79001234567@c.us" value="">
+                    </div>
+                    <div class="input-group">
+                        <label for="fileUrl">URL файла</label>
+                        <input type="text" id="fileUrl" placeholder="https://example.com/image.jpg" value="https://green-api.com/img/logo.svg">
+                    </div>
+                    <div class="input-group">
+                        <label for="fileName">Название файла</label>
+                        <input type="text" id="fileName" placeholder="file.jpg" value="test-file.jpg">
+                    </div>
+                    <div class="input-group">
+                        <label for="fileCaption">Подпись к файлу (необязательно)</label>
+                        <input type="text" id="fileCaption" placeholder="Подпись..." value="Отправлено через GREEN-API DevOps">
+                    </div>
+                    <button onclick="callSendFileByUrl()" class="accent">
+                        <span>📤</span> Отправить файл
+                    </button>
+                </div>
+
+                <div class="hint">
+                    Введите данные инстанса, заполните поля и нажмите нужный метод
+                </div>
+            </div>
+
+            <!-- Правая панель: только вывод результата -->
+            <div class="right-panel">
+                <div class="response-area">
+                    <h3>📋 Результат выполнения</h3>
+                    <div id="responseOutput">
+                        Введите параметры подключения и нажмите кнопку метода. Ответ API отобразится здесь.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Получение введенных параметров инстанса
+        function getCredentials() {
+            const idInstance = document.getElementById('idInstance').value.trim();
+            const apiTokenInstance = document.getElementById('apiTokenInstance').value.trim();
+
+            if (!idInstance || !apiTokenInstance) {
+                showError('Ошибка: Введите idInstance и ApiTokenInstance');
+                return null;
+            }
+            return { idInstance, apiTokenInstance };
+        }
+
+        // Отображение ответа в поле для чтения
+        function displayResponse(data, isError = false) {
+            const output = document.getElementById('responseOutput');
+            output.classList.remove('success', 'error');
+
+            if (isError) {
+                output.classList.add('error');
+                output.textContent = data;
+            } else {
+                output.classList.add('success');
+                output.textContent = typeof data === 'object' ? JSON.stringify(data, null, 2) : data;
+            }
+        }
+
+        function showError(message) {
+            displayResponse(message, true);
+        }
+
+        // Универсальная функция вызова GREEN-API
+        async function callApi(method, body = null) {
+            const creds = getCredentials();
+            if (!creds) return;
+
+            const { idInstance, apiTokenInstance } = creds;
+            const baseUrl = `https://api.green-api.com/waInstance${idInstance}`;
+
+            let url = '';
+            let options = {
+                method: 'GET',
+                headers: {}
+            };
+
+            switch (method) {
+                case 'getSettings':
+                    url = `${baseUrl}/getSettings/${apiTokenInstance}`;
+                    break;
+                case 'getStateInstance':
+                    url = `${baseUrl}/getStateInstance/${apiTokenInstance}`;
+                    break;
+                case 'sendMessage':
+                    url = `${baseUrl}/sendMessage/${apiTokenInstance}`;
+                    options.method = 'POST';
+                    options.headers['Content-Type'] = 'application/json';
+                    if (!body || !body.chatId || !body.message) {
+                        showError('Для sendMessage заполните chatId и текст сообщения');
+                        return;
+                    }
+                    options.body = JSON.stringify({
+                        chatId: body.chatId,
+                        message: body.message
+                    });
+                    break;
+                case 'sendFileByUrl':
+                    url = `${baseUrl}/sendFileByUrl/${apiTokenInstance}`;
+                    options.method = 'POST';
+                    options.headers['Content-Type'] = 'application/json';
+                    if (!body || !body.chatId || !body.urlFile) {
+                        showError('Для sendFileByUrl заполните chatId и URL файла');
+                        return;
+                    }
+                    options.body = JSON.stringify({
+                        chatId: body.chatId,
+                        urlFile: body.urlFile,
+                        fileName: body.fileName || 'file.jpg',
+                        caption: body.caption || ''
+                    });
+                    break;
+                default:
+                    showError('Неизвестный метод');
+                    return;
+            }
+
+            try {
+                displayResponse('⏳ Выполнение запроса...');
+                const response = await fetch(url, options);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || `HTTP ошибка: ${response.status}`);
+                }
+
+                displayResponse(data);
+            } catch (error) {
+                showError(`Ошибка выполнения: ${error.message}`);
+            }
+        }
+
+        // Обработчики для каждой кнопки
+        function callGetSettings() {
+            callApi('getSettings');
+        }
+
+        function callGetStateInstance() {
+            callApi('getStateInstance');
+        }
+
+        function callSendMessage() {
+            const chatId = document.getElementById('chatId').value.trim();
+            const message = document.getElementById('messageText').value.trim();
+
+            if (!chatId) {
+                showError('Введите номер получателя (chatId)');
+                return;
+            }
+            if (!message) {
+                showError('Введите текст сообщения');
+                return;
+            }
+
+            callApi('sendMessage', {
+                chatId: chatId,
+                message: message
+            });
+        }
+
+        function callSendFileByUrl() {
+            const chatId = document.getElementById('fileChatId').value.trim();
+            const urlFile = document.getElementById('fileUrl').value.trim();
+            const fileName = document.getElementById('fileName').value.trim();
+            const caption = document.getElementById('fileCaption').value.trim();
+
+            if (!chatId) {
+                showError('Введите номер получателя для файла (chatId)');
+                return;
+            }
+            if (!urlFile) {
+                showError('Введите URL файла');
+                return;
+            }
+
+            callApi('sendFileByUrl', {
+                chatId: chatId,
+                urlFile: urlFile,
+                fileName: fileName || 'file.jpg',
+                caption: caption || ''
+            });
+        }
+    </script>
+</body>
+</html>
